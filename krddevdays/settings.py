@@ -1,7 +1,6 @@
 import os
 
 import sentry_sdk
-from rest_framework.authentication import SessionAuthentication
 from sentry_sdk.integrations.django import DjangoIntegration
 from django.urls import get_script_prefix
 
@@ -96,16 +95,11 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'site@localhost')
 EMAIL_USE_TLS = True
 
 
-class CsrfExemptSessionAuthentication(SessionAuthentication):
-    def enforce_csrf(self, request):
-        return  # To not perform the csrf check previously happening
-
-
 # explicitly set format because .isoformat() can return value without microseconds
 REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%Y-%m-%dT%H:%M:%S.%fZ',
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'krddevdays.settings.CsrfExemptSessionAuthentication',
+        'krddevdays.authentication.CsrfExemptSessionAuthentication',
         'rest_framework.authentication.BasicAuthentication'
     ),
 }
