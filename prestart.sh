@@ -1,5 +1,7 @@
 #! /usr/bin/env sh
 
+source .venv/bin/activate
+
 echo "Apply database migration"
 python3 manage.py migrate --noinput
 
