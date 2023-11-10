@@ -9,3 +9,4 @@ shippable.yml
 /**/__pycache__/
 /static/
 /supervisord.pid
+.venv

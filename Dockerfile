@@ -1,6 +1,5 @@
-FROM tiangolo/uwsgi-nginx:python3.7-alpine3.9
+FROM tiangolo/uwsgi-nginx:python3.7
 
-RUN apk add --no-cache gcc python3-dev postgresql-dev musl-dev
 RUN pip install --no-cache-dir pdm
 
 EXPOSE 8000
