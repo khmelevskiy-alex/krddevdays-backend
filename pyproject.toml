@@ -1,0 +1,50 @@
+[project]
+name = "krddevdays"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "TyVik",email = "tyvik@krddevdays.ru"},
+]
+dependencies = [
+    "django==2.2.16",
+    "psycopg2==2.8.6",
+    "django-enumfield==2.0.2",
+    "djangorestframework==3.9.4",
+    "coverage==5.3",
+    "django-nose==1.4.7",
+    "requests==2.24.0",
+    "django-cors-headers==3.5.0",
+    "coreapi==2.3.3",
+    "django-phonenumber-field==5.0.0",
+    "phonenumberslite==8.12.11",
+    "python-dateutil==2.8.1",
+    "python-dotenv==0.15.0",
+    "django-filter==2.4.0",
+    "sentry-sdk==0.19.1",
+]
+requires-python = ">=3.7,<3.8"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+[[tool.pdm.source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "factory-boy==2.12.0",
+    "pdm-django"
+]
+
+[project.scripts]
+pdm = "pdm.core:main"
+
+[tool.pdm.scripts]
+_.env_file = ".env"
