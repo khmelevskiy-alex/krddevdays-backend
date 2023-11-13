@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.8'
 services:
   postgres:
     image: postgres:11.2-alpine
@@ -6,8 +6,6 @@ services:
       POSTGRES_USER: krddevdays
       POSTGRES_PASSWORD: krddevdays
       POSTGRES_DB: krddevdays
-    ports:
-      - 5432:5432
     healthcheck:
       test: ["CMD", "pg_isready -U krddevdays"]
       interval: 30s
@@ -15,22 +13,78 @@ services:
       retries: 3
     networks:
       - webnet
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  migrations:
+    image: tyvik/krddevdays6
+    command: ["python3", "manage.py", "migrate"]
+    environment:
+      DB_NAME: krddevdays
+      DB_USER: krddevdays
+      DB_PASSWORD: krddevdays
+      DB_HOST: postgres
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_started
+    networks:
+      - webnet
+
+  static:
+    image: tyvik/krddevdays6
+    command: ["python3", "manage.py", "collectstatic", "--noinput"]
+    environment:
+      DB_NAME: krddevdays
+      DB_USER: krddevdays
+      DB_PASSWORD: krddevdays
+      DB_HOST: postgres
+    volumes:
+      - static_volume:/app/static/
+    env_file:
+      - .env
+    networks:
+      - webnet
 
   app:
-    build: .
+    image: tyvik/krddevdays6
     restart: on-failure
+    environment:
+      DB_NAME: krddevdays
+      DB_USER: krddevdays
+      DB_PASSWORD: krddevdays
+      DB_HOST: postgres
     env_file:
       - .env
     ports:
-      - 8000:8000
+      - 8000
+    volumes:
+      - static_volume:/app/static/
     depends_on:
-      - postgres
-    links:
-      - postgres
+      static:
+        condition: service_completed_successfully
+      migrations:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_started
     networks:
       - webnet
+
+  nginx:
+    image: tyvik/krddevdays:nginx
     volumes:
-      - .:/app
+      - static_volume:/opt
+    ports:
+      - 8008:80
+    depends_on:
+      - app
+    networks:
+      - webnet
 
 networks:
   webnet:
+
+volumes:
+  postgres_data:
+  static_volume:
