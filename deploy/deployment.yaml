@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+  labels:
+    app: krddevdays
+    part: django
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: krddevdays
+      part: django
+  template:
+    metadata:
+      labels:
+        app: krddevdays
+        part: django
+    spec:
+      containers:
+      - name: django
+        image: tyvik/krddevdays
+        envFrom:
+          - configMapRef:
+              name: krddevdays
+        ports:
+        - containerPort: 8000
+          name: http
+
+
