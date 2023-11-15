@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job1
+spec:
+  template:
+    spec:
+      containers:
+      - name: django
+        image: tyvik/krddevdays
+        command: ["./manage.py",  "migrate"]
+        envFrom:
+          - configMapRef:
+              name: krddevdays
+      restartPolicy: Never
+  backoffLimit: 4
