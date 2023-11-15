@@ -19,12 +19,30 @@ spec:
     spec:
       containers:
       - name: django
-        image: tyvik/krddevdays
+        image: tyvik/krddevdays:healthcheck
         envFrom:
           - configMapRef:
               name: krddevdays
         ports:
         - containerPort: 8000
           name: http
-
-
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 3
+          failureThreshold: 3
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 3
+          periodSeconds: 3
+          failureThreshold: 2
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 3
+          periodSeconds: 3

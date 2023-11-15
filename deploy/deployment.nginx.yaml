@@ -20,7 +20,7 @@ spec:
       initContainers:
       - name: django-collectstatic
         image: tyvik/krddevdays
-        command: ["python3", "manage.py", "collectstatic"]
+        command: ["python3", "manage.py", "collectstatic", "--noinput"]
         envFrom:
           - configMapRef:
               name: krddevdays
