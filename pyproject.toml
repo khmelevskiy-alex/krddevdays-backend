@@ -22,7 +22,7 @@ dependencies = [
     "django-filter==2.4.0",
     "sentry-sdk==0.19.1",
 ]
-requires-python = ">=3.7,<3.8"
+requires-python = ">=3.8,<3.9"
 readme = "README.md"
 license = {text = "MIT"}
 
