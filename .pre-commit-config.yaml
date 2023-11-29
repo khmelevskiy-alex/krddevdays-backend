@@ -1,9 +1,10 @@
 repos:
 -   repo: https://github.com/pre-commit/mirrors-mypy
-    rev: 'v0.781'
+    rev: v0.961
     hooks:
       -   id: mypy
--   repo: https://gitlab.com/pycqa/flake8
-    rev: '3.8.3'
+          exclude: install-pdm.py
+-   repo: https://github.com/pycqa/flake8
+    rev: 4.0.1
     hooks:
       -   id: flake8
