@@ -1,3 +1,9 @@
+lock:
+	pdm lock
+
+install-dev:
+	pdm sync
+
 makemigrations:
 	pdm run manage.py makemigrations
 
@@ -21,3 +27,9 @@ docker_stop:
 
 docker_down:
 	docker compose down
+
+docker_image_size:
+	docker image ls | grep krddevdays-backend-app
+
+docker_image_history:
+	docker image history krddevdays-backend-app
