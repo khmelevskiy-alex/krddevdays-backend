@@ -19,6 +19,7 @@ dependencies = [
     "python-dotenv==0.15.0",
     "django-filter==2.4.0",
     "sentry-sdk==0.19.1",
+    "gunicorn>=21.2.0",
 ]
 requires-python = ">=3.8,<3.9"
 readme = "README.md"
