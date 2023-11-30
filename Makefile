@@ -16,8 +16,12 @@ collectstatic:
 runserver:
 	pdm run manage.py runserver 0.0.0.0:8000
 
+docker_build:
+	docker build -t krddevdays-app -f ./Dockerfile .
+	docker build -t krddevdays-nginx -f ./deploy/Dockerfile.nginx ./deploy
+
 docker_up:
-	docker compose up -d --build
+	docker compose up -d
 
 docker_start:
 	docker compose start
