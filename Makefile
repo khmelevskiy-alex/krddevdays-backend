@@ -37,3 +37,5 @@ docker_image_size:
 
 docker_image_history:
 	docker image history krddevdays-backend-app
+
+docker_reset: docker_down docker_up

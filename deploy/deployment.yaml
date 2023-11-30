@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+  labels:
+    app: krddevdays
+    part: django
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: krddevdays
+      part: django
+  template:
+    metadata:
+      labels:
+        app: krddevdays
+        part: django
+    spec:
+      containers:
+      - name: django
+        image: krddevdays-app
+        envFrom:
+          - configMapRef:
+              name: krddevdays
+        ports:
+        - containerPort: 8000
+          name: http
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 3
+          failureThreshold: 3
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 3
+          periodSeconds: 3
+          failureThreshold: 2
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 3
+          periodSeconds: 3
