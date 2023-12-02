@@ -56,4 +56,4 @@ mk8s_delete:
 	kubectl delete -f deploy
 
 mk8s_stop:
-	minikube start
+	minikube stop
