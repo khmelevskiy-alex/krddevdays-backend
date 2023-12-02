@@ -19,7 +19,8 @@ spec:
     spec:
       initContainers:
       - name: django-collectstatic
-        image: krddevdays-app
+        image: alex/krddevdays-app
+        imagePullPolicy: Never
         command: ["python3", "manage.py", "collectstatic", "--noinput"]
         envFrom:
           - configMapRef:

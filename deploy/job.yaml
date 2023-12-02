@@ -7,7 +7,8 @@ spec:
     spec:
       containers:
       - name: django
-        image: krddevdays-app
+        image: alex/krddevdays-app
+        imagePullPolicy: Never
         command: ["./manage.py",  "migrate"]
         envFrom:
           - configMapRef:
