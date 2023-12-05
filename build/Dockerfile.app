@@ -1,4 +1,4 @@
-FROM tiangolo/uwsgi-nginx:python3.8
+FROM python:3.8-slim
 
 RUN pip install --no-cache-dir pdm
 
@@ -11,4 +11,4 @@ RUN pdm sync -g -p /app --no-self
 
 COPY . .
 
-RUN chmod +x /app/prestart.sh
+CMD ["gunicorn", "-b", "0.0.0.0:8000", "krddevdays.wsgi:application"]
