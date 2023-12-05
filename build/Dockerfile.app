@@ -1,13 +1,22 @@
-FROM python:3.8-slim
+FROM python:3.8-slim as builder
 
-RUN pip install --no-cache-dir pdm
+COPY install-pdm.py .
+RUN python3 install-pdm.py;
 
 EXPOSE 8000
 
 WORKDIR /app
 
 COPY pdm.lock pyproject.toml /app/
-RUN pdm sync -g -p /app --no-self
+RUN /root/.local/bin/pdm sync -g -p /app --no-self --prod;
+
+
+FROM python:3.8-slim as app
+
+WORKDIR /app
+
+COPY --from=builder /usr/local/lib/python3.8/site-packages/ /usr/local/lib/python3.8/site-packages/
+COPY --from=builder /usr/local/bin/ /usr/local/bin/
 
 COPY . .
 
