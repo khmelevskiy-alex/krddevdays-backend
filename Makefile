@@ -10,3 +10,9 @@ image_size:
 # Сборка новой версии образа
 build:
 	docker build -t krddevdays-app:latest -f ./build/Dockerfile.app .
+	docker build -t krddevdays-nginx:latest -f ./build/Dockerfile.nginx ./build
+
+.PHONY: compose_up
+compose_up:
+	docker compose -f ./deploy/docker-compose.yml up -d
+
