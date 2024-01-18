@@ -35,8 +35,6 @@ docker_reset: docker_down docker_up
 .PHONY: mk8s_start mk8s_init mk8s_create mk8s_delete mk8s_stop
 mk8s_start:
 	minikube start
-
-mk8s_init:
 	minikube addons enable ingress
 	minikube addons enable ingress-dns
 	minikube addons enable registry
@@ -48,7 +46,7 @@ mk8s_create:
 	@eval $$(minikube -p minikube docker-env) ;\
 	docker build -t alex/krddevdays-app -f Dockerfile .
 	kubectl create configmap krddevdays --from-env-file=.env
-	kubectl create -f deploy
+	kubectl apply -f deploy
 
 mk8s_delete:
 	kubectl delete configmap krddevdays
