@@ -18,6 +18,7 @@ docker_image_size:
 
 docker_up:
 	docker compose up -d
+	echo http://localhost:8008/admin/
 
 docker_start:
 	docker compose start
