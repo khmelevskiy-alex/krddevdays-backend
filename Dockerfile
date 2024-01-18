@@ -20,4 +20,6 @@ COPY --from=builder /usr/local/bin/ /usr/local/bin/
 
 COPY . .
 
+RUN chmod +x /app/prestart.sh
+
 CMD ["gunicorn", "-b", "0.0.0.0:8000", "krddevdays.wsgi:application"]
