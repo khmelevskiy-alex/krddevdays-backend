@@ -11,6 +11,4 @@ RUN pdm sync -g -p /app --no-self
 
 COPY . .
 
-RUN chmod +x /app/prestart.sh
-
 CMD ["gunicorn", "-b", "0.0.0.0:8000", "krddevdays.wsgi:application"]

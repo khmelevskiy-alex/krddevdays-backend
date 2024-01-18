@@ -4,6 +4,9 @@
 docker_build_origin:
 	docker build -t krddevdays-app:origin -f ./Dockerfile .
 
+docker_build_slim:
+	docker build -t krddevdays-app:slim -f ./Dockerfile .
+
 # docker + compose
 .PHONY: docker_build docker_image_size docker_up docker_start docker_stop docker_down docker_reset
 docker_build:
