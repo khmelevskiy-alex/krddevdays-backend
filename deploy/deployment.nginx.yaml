@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: krddevdays
+    part: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: krddevdays
+      part: nginx
+  template:
+    metadata:
+      labels:
+        app: krddevdays
+        part: nginx
+    spec:
+      initContainers:
+      - name: django-collectstatic
+        image: alex/krddevdays-app
+        imagePullPolicy: Never
+        command: ["python3", "manage.py", "collectstatic", "--noinput"]
+        envFrom:
+          - configMapRef:
+              name: krddevdays
+          - secretRef:
+              name: krddevdays
+        volumeMounts:
+        - name: staticfiles
+          mountPath: /app/static/
+      containers:
+      - name: nginx
+        image: nginx:1.25
+        volumeMounts:
+        - name: staticfiles
+          mountPath: /usr/share/nginx/html/static
+        ports:
+        - containerPort: 80
+          name: http
+      volumes:
+      - name: staticfiles
+        emptyDir: {}

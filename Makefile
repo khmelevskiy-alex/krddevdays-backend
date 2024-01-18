@@ -42,14 +42,22 @@ mk8s_start:
 mk8s_dashboard:
 	minikube dashboard --url
 
+mk8s_ingress:
+	minikube tunnel
+
 mk8s_create:
 	@eval $$(minikube -p minikube docker-env) ;\
 	docker build -t alex/krddevdays-app -f Dockerfile .
-	kubectl create configmap krddevdays --from-env-file=.env
+	kubectl create configmap krddevdays --from-env-file=.env.configmap
+	kubectl create secret generic krddevdays --from-file .env.secret
+	kubectl apply -f deploy
+
+mk8s_apply:
 	kubectl apply -f deploy
 
 mk8s_delete:
 	kubectl delete configmap krddevdays
+	kubectl delete secret krddevdays
 	kubectl delete -f deploy
 
 mk8s_stop:

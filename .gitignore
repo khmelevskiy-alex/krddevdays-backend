@@ -1,6 +1,8 @@
 .idea/
 /**/__pycache__/
 .env
+.env.configmap
+.env.secret
 .pdm-python
 .venv
 /static/

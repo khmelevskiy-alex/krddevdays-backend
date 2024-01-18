@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job1
+spec:
+  template:
+    spec:
+      containers:
+      - name: django
+        image: alex/krddevdays-app
+        imagePullPolicy: Never
+        command: ["./manage.py",  "migrate"]
+        envFrom:
+          - configMapRef:
+              name: krddevdays
+          - secretRef:
+              name: krddevdays
+      restartPolicy: Never
+  backoffLimit: 4
