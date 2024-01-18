@@ -10,7 +10,7 @@ docker_build_slim:
 # docker + compose
 .PHONY: docker_build docker_image_size docker_up docker_start docker_stop docker_down docker_reset
 docker_build:
-	docker build -t krddevdays-app:latest -f ./build/Dockerfile.app .
+	docker build -t krddevdays-app:latest -f ./Dockerfile.app .
 	docker build -t krddevdays-nginx:latest -f ./deploy/Dockerfile.nginx ./deploy
 
 docker_image_size:
