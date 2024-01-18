@@ -1,7 +1,10 @@
 /.idea
 .env
 .env.example
+.git
 .gitignore
+.pdm-python
+.venv
 docker-compose.yml
 README.md
 shippable.yml
