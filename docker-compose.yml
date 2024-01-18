@@ -53,8 +53,6 @@ services:
         condition: service_started
     networks:
       - webnet
-    volumes:
-      - static_volume:/app/static/
 
   nginx:
     image: krddevdays-nginx:latest
